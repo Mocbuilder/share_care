@@ -1,0 +1,2 @@
+# Share&Care Backend
+Share&Care ist ein Prototyp-Projekt welches für den [Hackathon 2026 von Digitale Oberlausitz e.V.](https://hackathon2026.digitale-oberlausitz.eu/) erstellt wurde. Dieses Projekt beinhaltet die Backend-Implementierung für das [Share&Care Frontend](https://github.com/DasShorty/sharecare-frontend).
