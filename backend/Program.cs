@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication;
 using Npgsql;
 using sharecare_backend.Filters;
 using sharecare_backend.Services;
+using static System.Net.WebRequestMethods;
 
 namespace sharecare_backend
 {
@@ -17,8 +18,7 @@ namespace sharecare_backend
 
             builder.Services.AddScoped<DbService>();
 
-            var corsOrigin = builder.Configuration.GetValue<string>("CorsOrigin")
-                 ?? "https://your-allowed-origin.com";
+            var corsOrigin = new string[] { "http://localhost:4200", "https://share-care.dasshorty.de" };
 
             // 1. Add CORS services and define the policy
             builder.Services.AddCors(options =>
