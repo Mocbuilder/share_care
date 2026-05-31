@@ -10,16 +10,6 @@ export class ProblemStateService {
   getProblems() {
     return this.problemsSignal.asReadonly();
   }
-
-  addProblem(problem: Problem): Problem {
-    const newProblem: Problem = {
-      ...problem,
-      id: this.nextProblemId++,
-    };
-    this.appendProblem(newProblem);
-    return newProblem;
-  }
-
   setProblems(problems: Problem[]): void {
     const next = [...problems];
     this.problemsSignal.set(next);
@@ -36,25 +26,6 @@ export class ProblemStateService {
     this.nextProblemId = Math.max(this.nextProblemId, this.computeNextId([problem]));
     return problem;
   }
-
-  removeProblem(problemId: number): void {
-    this.problemsSignal.update((problems) => {
-      const next = problems.filter((p) => p.id !== problemId);
-      this.saveProblemsToStorage(next);
-      return next;
-    });
-  }
-
-  clearProblems(): void {
-    this.problemsSignal.set([]);
-    this.nextProblemId = 1;
-    try {
-      localStorage.removeItem(this.STORAGE_KEY);
-    } catch {
-      // ignore
-    }
-  }
-
   private saveProblemsToStorage(problems: Problem[]): void {
     try {
       localStorage.setItem(this.STORAGE_KEY, JSON.stringify(problems));

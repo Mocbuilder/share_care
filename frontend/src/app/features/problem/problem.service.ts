@@ -104,11 +104,11 @@ export class ProblemService {
       }
 
       // Labels
-      const nf = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' });
+      const numberFormat = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' });
       let paymentLabel: string | undefined;
       if (paymentObj.type === PaymentType.Free) paymentLabel = 'Kostenlos';
       else if (paymentObj.type === PaymentType.Money)
-        paymentLabel = nf.format((paymentObj as MoneyPayment).amount ?? 0);
+        paymentLabel = numberFormat.format((paymentObj as MoneyPayment).amount ?? 0);
       else paymentLabel = (paymentObj as CustomPayment).customText || '<custom>';
 
       const timeLabel = (() => {

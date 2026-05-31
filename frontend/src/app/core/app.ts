@@ -1,22 +1,21 @@
-import {Component} from '@angular/core';
-import {RouterOutlet} from '@angular/router';
+import { Component } from '@angular/core';
+import { HomePage } from '@core/home.page';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [HomePage],
   host: {
     class: 'app-root',
   },
-  template: `
-    <router-outlet></router-outlet>
-  `,
-  styles: [`
-    :host {
-      display: block;
-      width: 100%;
-      height: 100%;
-    }
-  `],
+  template: ` <home-page></home-page> `,
+  styles: [
+    `
+      :host {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+    `,
+  ],
 })
-export class App {
-}
+export class App {}

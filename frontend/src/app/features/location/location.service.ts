@@ -10,7 +10,7 @@ export interface SavedUserLocation {
 
 @Injectable({ providedIn: 'root' })
 export class LocationService {
-  private readonly STORAGE_KEY = 'share-care-user-location';
+  private readonly USER_LOCATION_STORAGE_KEY = 'share-care-user-location';
 
   async getCurrentLocation(): Promise<GeolocationCoordinates> {
     return new Promise((resolve, reject) => {
@@ -86,7 +86,7 @@ export class LocationService {
         display_name: display_name ?? null,
         timestamp: Date.now(),
       };
-      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(payload));
+      localStorage.setItem(this.USER_LOCATION_STORAGE_KEY, JSON.stringify(payload));
     } catch (err) {
       console.error('Failed to save user location', err);
     }
@@ -94,7 +94,7 @@ export class LocationService {
 
   loadSavedLocation(): SavedUserLocation | null {
     try {
-      const raw = localStorage.getItem(this.STORAGE_KEY);
+      const raw = localStorage.getItem(this.USER_LOCATION_STORAGE_KEY);
       if (!raw) return null;
       const parsed = JSON.parse(raw) as SavedUserLocation | null;
       if (!parsed) return null;
@@ -108,7 +108,7 @@ export class LocationService {
 
   clearSavedLocation(): void {
     try {
-      localStorage.removeItem(this.STORAGE_KEY);
+      localStorage.removeItem(this.USER_LOCATION_STORAGE_KEY);
     } catch (err) {
       console.error('Failed to clear saved user location', err);
     }

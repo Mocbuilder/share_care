@@ -40,6 +40,13 @@ import { ProblemService } from '@features/problem/problem.service';
         >
           <svg lucideMapPinHouse></svg>
         </button>
+        <button
+          type="button"
+          class="action-button"
+          [disabled]="isLocating() || isResolvingAddress() || !hasSavedLocation()"
+          (click)="clearSavedLocation()">
+          Standort löschen
+        </button>
       </div>
     </form>
 
@@ -171,6 +178,7 @@ export class MapboxComponent {
   readonly statusMessage = signal<string | null>(null);
   readonly isLocating = signal(false);
   readonly isResolvingAddress = signal(false);
+  readonly hasSavedLocation = signal(false);
   readonly markerLabel = signal('Gebe deinen aktuellen Standort ein!');
 
   readonly markers = computed<MapMarker[]>(() => {
@@ -207,6 +215,7 @@ export class MapboxComponent {
       const label = saved.display_name ?? `${saved.lat}, ${saved.lon}`;
       this.markerLabel.set(label);
       this.addressControl.setValue(label);
+      this.hasSavedLocation.set(true);
     }
   }
 
@@ -235,11 +244,13 @@ export class MapboxComponent {
           coords.longitude,
           rev.display_name ?? null,
         );
+        this.hasSavedLocation.set(true);
       } catch {
         this.markerLabel.set('Dein aktueller Standort');
         const coordStr = `${coords.latitude}, ${coords.longitude}`;
         this.addressControl.setValue(coordStr);
         this.locationService.saveUserLocation(coords.latitude, coords.longitude, coordStr);
+        this.hasSavedLocation.set(true);
       }
 
       this.statusMessage.set('Deinen aktuellen Standort gefunden!');
@@ -274,6 +285,7 @@ export class MapboxComponent {
         Number(match.lon),
         match.display_name,
       );
+      this.hasSavedLocation.set(true);
       this.statusMessage.set(`Showing: ${match.display_name}`);
     } catch (error: unknown) {
       const message = error instanceof Error ? error.message : 'Unmöglich die Adresse zu laden!';
@@ -283,5 +295,13 @@ export class MapboxComponent {
     }
   }
 
-  // Location operations are handled by LocationService
+  clearSavedLocation(): void {
+    this.locationService.clearSavedLocation();
+    this.hasSavedLocation.set(false);
+    this.center.set(this.fallbackCenter);
+    this.zoom.set(this.locationZoom);
+    this.markerLabel.set('Gebe deinen aktuellen Standort ein!');
+    this.addressControl.setValue('');
+    this.statusMessage.set('Gespeicherter Standort wurde geloescht.');
+  }
 }

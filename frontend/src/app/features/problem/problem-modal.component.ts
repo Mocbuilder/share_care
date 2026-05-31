@@ -495,6 +495,4 @@ export class ProblemModalComponent {
     });
     this.selectedLocation.set(null);
   }
-
-  // Geocoding and geolocation delegated to LocationService
 }
