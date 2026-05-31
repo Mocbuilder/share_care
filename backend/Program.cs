@@ -17,6 +17,20 @@ namespace sharecare_backend
 
             builder.Services.AddScoped<DbService>();
 
+            var corsOrigin = builder.Configuration.GetValue<string>("CorsOrigin")
+                 ?? "https://your-allowed-origin.com";
+
+            // 1. Add CORS services and define the policy
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("CustomCorsPolicy", policy =>
+                {
+                    policy.WithOrigins(corsOrigin)
+                          .WithMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                          .WithHeaders("Authorization", "Content-Type", "Access-Control-Allow-Origin");
+                });
+            });
+
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             //builder.Services.AddOpenApi();
@@ -39,7 +53,7 @@ namespace sharecare_backend
             }
 
             app.UseHttpsRedirection();
-
+            app.UseCors("CustomCorsPolicy");
             app.UseAuthentication();
             app.UseAuthorization();
 
