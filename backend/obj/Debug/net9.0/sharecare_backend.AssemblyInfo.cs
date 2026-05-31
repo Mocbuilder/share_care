@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("sharecare_backend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5d585c9394765952b27f08796510368394facf42")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f6be8b74b930a2f46b528a9cb3856d8dee26da5b")]
 [assembly: System.Reflection.AssemblyProductAttribute("sharecare_backend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("sharecare_backend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

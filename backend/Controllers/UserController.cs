@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using sharecare_backend.Models.User;
 using System.IO;
@@ -9,8 +8,8 @@ using sharecare_backend.Services;
 namespace sharecare_backend.Controllers
 {
     [ApiController]
-    [Authorize(AuthenticationSchemes = "BasicAuthentication")]
-    [Route("api/[controller]/[action]")]
+    //[Authorize(AuthenticationSchemes = "BasicAuthentication")]
+    [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
         private readonly ILogger<UserController> _logger;

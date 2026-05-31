@@ -35,9 +35,10 @@ namespace sharecare_backend
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             //builder.Services.AddOpenApi();
 
+            /*
             builder.Services.AddAuthentication("BasicAuthentication")
                 .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
-    
+            */
             var app = builder.Build();
 
             using (var scope = app.Services.CreateScope())
@@ -55,7 +56,7 @@ namespace sharecare_backend
             app.UseHttpsRedirection();
             app.UseCors("CustomCorsPolicy");
             app.UseAuthentication();
-            app.UseAuthorization();
+            //app.UseAuthorization();
 
 
             app.MapControllers();
