@@ -26,10 +26,11 @@ C:\Users\Nico\source\repos\Mocbuilder\share_care\backend\obj\Debug\net9.0\static
 C:\Users\Nico\source\repos\Mocbuilder\share_care\backend\obj\Debug\net9.0\staticwebassets.development.json
 C:\Users\Nico\source\repos\Mocbuilder\share_care\backend\obj\Debug\net9.0\staticwebassets.build.endpoints.json
 C:\Users\Nico\source\repos\Mocbuilder\share_care\backend\obj\Debug\net9.0\swae.build.ex.cache
-C:\Users\Nico\source\repos\Mocbuilder\share_care\backend\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
 C:\Users\Nico\source\repos\Mocbuilder\share_care\backend\obj\Debug\net9.0\sharecar.BEFBE87F.Up2Date
 C:\Users\Nico\source\repos\Mocbuilder\share_care\backend\obj\Debug\net9.0\sharecare_backend.dll
 C:\Users\Nico\source\repos\Mocbuilder\share_care\backend\obj\Debug\net9.0\refint\sharecare_backend.dll
 C:\Users\Nico\source\repos\Mocbuilder\share_care\backend\obj\Debug\net9.0\sharecare_backend.pdb
 C:\Users\Nico\source\repos\Mocbuilder\share_care\backend\obj\Debug\net9.0\sharecare_backend.genruntimeconfig.cache
 C:\Users\Nico\source\repos\Mocbuilder\share_care\backend\obj\Debug\net9.0\ref\sharecare_backend.dll
+C:\Users\Nico\source\repos\Mocbuilder\share_care\backend\bin\Debug\net9.0\dotnet-tools.json
+C:\Users\Nico\source\repos\Mocbuilder\share_care\backend\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
