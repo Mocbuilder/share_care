@@ -1,8 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Problem } from '@features/problem/problem.model';
-import { HttpClient } from '@angular/common/http';
 import { ProblemStateService } from '@features/problem/problem-state.service';
-import { environment } from '@environments/environment';
 import { from, Observable, tap } from 'rxjs';
 import { LocationService } from '@features/location/location.service';
 import { Location } from '@features/location/location.model';
@@ -13,31 +11,14 @@ import {
   MoneyPayment,
   PaymentType,
 } from '@features/payment/payment.model';
-import { switchMap } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class ProblemService {
-  private readonly httpClient = inject(HttpClient);
   private readonly problemStateService = inject(ProblemStateService);
   private readonly locationService = inject(LocationService);
 
-  private readonly getAllProblemsEndpoint = `${environment.backendUrl}problems/GETAllProblems`;
-  private readonly createProblemsEndpoint = `${environment.backendUrl}problems/POSTCreateProblems`;
-
-  constructor() {
-    void this.loadProblemsRemote().subscribe({
-      error: (error: unknown) => console.error('Failed to load problems:', error),
-    });
-  }
-
   getProblems() {
     return this.problemStateService.getProblems();
-  }
-
-  loadProblemsRemote() {
-    return this.httpClient
-      .get<Problem[]>(this.getAllProblemsEndpoint)
-      .pipe(tap((problems) => this.problemStateService.setProblems(problems)));
   }
 
   createAndSubmitProblem(
@@ -140,13 +121,7 @@ export class ProblemService {
       };
     };
 
-    // Build problem asynchronously (may perform geocoding) and then POST
-    return from(buildProblem()).pipe(switchMap((p) => this.createProblemRemote(p)));
-  }
-
-  createProblemRemote(problem: Problem) {
-    return this.httpClient
-      .post<Problem>(this.createProblemsEndpoint, problem)
-      .pipe(tap((createdProblem) => this.problemStateService.appendProblem(createdProblem)));
+    // Build problem asynchronously (may perform geocoding) and persist locally.
+    return from(buildProblem()).pipe(tap((p) => this.problemStateService.appendProblem(p)));
   }
 }

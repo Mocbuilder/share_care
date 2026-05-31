@@ -18,13 +18,18 @@ export class ProblemStateService {
   }
 
   appendProblem(problem: Problem): Problem {
+    const nextProblem: Problem = {
+      ...problem,
+      id: Number.isFinite(problem?.id) && problem.id > 0 ? problem.id : this.nextProblemId,
+    };
+
     this.problemsSignal.update((problems) => {
-      const next = [...problems, problem];
+      const next = [...problems, nextProblem];
       this.saveProblemsToStorage(next);
       return next;
     });
-    this.nextProblemId = Math.max(this.nextProblemId, this.computeNextId([problem]));
-    return problem;
+    this.nextProblemId = Math.max(this.nextProblemId, nextProblem.id + 1);
+    return nextProblem;
   }
   private saveProblemsToStorage(problems: Problem[]): void {
     try {
