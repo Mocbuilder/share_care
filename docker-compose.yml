@@ -1,0 +1,55 @@
+networks:
+  default:
+    external: false
+volumes:
+  pg-data:
+
+name: sharecare
+
+services:
+  postgres:
+    image: postgres:latest
+    shm_size: 128mb
+    env_file: .env
+    networks:
+      - default
+    expose:
+      - 5432
+    restart: always
+    volumes:
+      - pg-data:/var/lib/postgresql
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 30s
+      retries: 5
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    networks:
+      - default
+    expose:
+      - 8080
+    environment:
+      - "DATABASE_URL=Host=postgres;Database=postgres;Username=postgres;Password=postgres_password;"
+    links:
+      - postgres
+    deploy:
+      mode: replicated
+      replicas: 1
+    depends_on:
+      postgres:
+        condition: service_healthy
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: always
+
+  apache:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    expose:
+      - 80
+    restart: always
