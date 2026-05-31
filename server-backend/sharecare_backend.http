@@ -1,6 +1,0 @@
-@sharecare_backend_HostAddress = http://localhost:5170
-
-GET {{sharecare_backend_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
